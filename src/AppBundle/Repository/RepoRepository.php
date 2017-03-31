@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class RepoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function all()
+    {
+        $qb = $this->createQueryBuilder('repo');
+        $qb
+            ->select('repo.id', 'repo.name', 'repo.fullName', 'repo.htmlUrl', 'repo.description')
+            ->orderBy('repo.id', 'asc');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
