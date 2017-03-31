@@ -1,7 +1,7 @@
 repo-tagger
 ===========
 
-一个个人 GitHub star 仓库的管理工具。
+一个用 Symfony3 写的个人 GitHub star 仓库的管理工具。
 
 ## 部署
 安装依赖
