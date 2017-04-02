@@ -26,7 +26,7 @@
                     <span class="tag" v-for="tag in repo.tags">${ tag }</span>
                 </div>
                 <div class="name">
-                    <a :href="repo.htmlUrl" target="_blank">${ repo.name }</a>
+                    <a :href="repo.htmlUrl" target="_blank">${ repo.name } <span>(${ repo.fullName })</span></a>
                 </div>
                 <p class="description" v-if="repo.description">${ repo.description }</p>
                 <p class="remark" v-if="repo.remark">${ repo.remark }</p>

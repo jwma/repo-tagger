@@ -169,10 +169,16 @@ body {
   .name {
     margin-top: 15px;
     a {
+      color: #000;
       letter-spacing: 1px;
       font-size: 18px;
       text-decoration: none;
       font-weight: bold;
+
+      span {
+        color: #777;
+        font-size: 14px;
+      }
     }
   }
 
