@@ -36,4 +36,5 @@ bin/console app:crawl-starred-list
 bin/console server:run 127.0.0.1:8080
 ````
 
-待续..
+## 使用
+在浏览器访问 `http://127.0.0.1:8080` 即可。
