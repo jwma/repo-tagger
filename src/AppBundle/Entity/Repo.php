@@ -50,12 +50,25 @@ class Repo
     private $description;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="tags", type="simple_array", nullable=true)
+     */
+    private $tags;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="remark", type="text", nullable=true)
+     */
+    private $remark;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-
 
     /**
      * Get id
@@ -186,5 +199,52 @@ class Repo
     {
         return $this->createdAt;
     }
-}
 
+    /**
+     * Set tags
+     *
+     * @param array $tags
+     *
+     * @return Repo
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set remark
+     *
+     * @param string $remark
+     *
+     * @return Repo
+     */
+    public function setRemark($remark)
+    {
+        $this->remark = $remark;
+
+        return $this;
+    }
+
+    /**
+     * Get remark
+     *
+     * @return string
+     */
+    public function getRemark()
+    {
+        return $this->remark;
+    }
+}

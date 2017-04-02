@@ -53,6 +53,7 @@ class AppCrawlStarredListCommand extends ContainerAwareCommand
                     ->setFullName($one['full_name'])
                     ->setHtmlUrl($one['html_url'])
                     ->setDescription($one['description'])
+                    ->setTags([])
                     ->setCreatedAt(new \DateTime($one['created_at']));
 
                 $output->writeln('保存 ' . $repo->getName());

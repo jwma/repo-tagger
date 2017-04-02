@@ -31,7 +31,7 @@
                 <p class="description" v-if="repo.description">${ repo.description }</p>
                 {#<p class="remark"></p>#}
                 <div class="buttons">
-                    <a class="button button--info" href="#">编辑</a>
+                    <a class="button button--info" @click="toEdit(repo)">编辑</a>
                     <a class="button button--danger" href="#">删除</a>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="form-control" style="text-align: right;">
-                <button class="button button--big" @click="editForm.show = false">取消</button>
+                <button class="button button--big" @click="closeEditForm">取消</button>
                 <button class="button button--big button--info">更新</button>
             </div>
         </div>
@@ -88,13 +88,13 @@
                 loading: false,
                 list: [],
                 editForm: {
-                    show: true,
+                    show: false,
                     newTag: '',
                     repo: {
                         id: null,
-                        name: 'guzzle',
-                        tags: ['PHP', 'Http'],
-                        remark: ''
+                        name: null,
+                        tags: null,
+                        remark: null
                     }
                 }
             },
@@ -121,6 +121,14 @@
                 },
                 removeTag: function (idx) {
                     this.editForm.repo.tags.splice(idx, 1)
+                },
+                closeEditForm: function () {
+                    this.editForm.show = false
+                    this.editForm.repo = {}
+                },
+                toEdit: function (repo) {
+                    this.editForm.show = true
+                    this.editForm.repo = repo
                 }
             }
         })

@@ -14,7 +14,8 @@ class RepoRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('repo');
         $qb
-            ->select('repo.id', 'repo.name', 'repo.fullName', 'repo.htmlUrl', 'repo.description')
+            ->select('repo.id', 'repo.name', 'repo.fullName', 'repo.htmlUrl', 'repo.description',
+                'repo.tags', 'repo.remark')
             ->orderBy('repo.id', 'asc');
 
         return $qb->getQuery()->getArrayResult();
