@@ -22,14 +22,14 @@
         </transition>
         <transition-group name="fade">
             <div class="repo-item" v-for="repo in list" v-bind:key="repo.id">
-                <div class="tags">
-                    <span class="tag">标签</span>
+                <div class="tags" v-show="repo.tags.length > 0">
+                    <span class="tag" v-for="tag in repo.tags">${ tag }</span>
                 </div>
                 <div class="name">
                     <a :href="repo.htmlUrl" target="_blank">${ repo.name }</a>
                 </div>
                 <p class="description" v-if="repo.description">${ repo.description }</p>
-                {#<p class="remark"></p>#}
+                <p class="remark" v-if="repo.remark">${ repo.remark }</p>
                 <div class="buttons">
                     <a class="button button--info" @click="toEdit(repo)">编辑</a>
                     <a class="button button--danger" href="#">删除</a>
@@ -66,7 +66,7 @@
             </div>
             <div class="form-control" style="text-align: right;">
                 <button class="button button--big" @click="closeEditForm">取消</button>
-                <button class="button button--big button--info">更新</button>
+                <button class="button button--big button--info" @click="doUpdate">更新</button>
             </div>
         </div>
     </div>
@@ -124,11 +124,20 @@
                 },
                 closeEditForm: function () {
                     this.editForm.show = false
+                    this.editForm.newTag = ''
                     this.editForm.repo = {}
                 },
                 toEdit: function (repo) {
                     this.editForm.show = true
-                    this.editForm.repo = repo
+                    this.editForm.repo = JSON.parse(JSON.stringify(repo))
+                },
+                doUpdate: function () {
+                    var self = this
+                    axios.patch('{{ path('app_default_updaterepo') }}', this.editForm.repo)
+                        .then(function (response) {
+                            self.closeEditForm()
+                            self.listRepo()
+                        })
                 }
             }
         })
