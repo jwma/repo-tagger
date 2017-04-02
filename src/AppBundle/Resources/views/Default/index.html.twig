@@ -1,0 +1,70 @@
+<!DOCTYPE>
+<html lang="zh_CN">
+<head>
+    <title>Repo tagger</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+</head>
+<body onload="init()">
+<div id="app" v-cloak>
+    <div class="menu">
+        <div class="container menu-items">
+            <div class="brand">Repo Tagger</div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="search...">
+            </div>
+        </div>
+    </div>
+    <div class="container repo-list">
+        <div class="list-loading-tips" v-show="loading">loading...</div>
+        <div class="repo-item" v-for="repo in list">
+            <div class="tags">
+                <span class="tag">标签</span>
+                <span class="tag tag--more">+</span>
+            </div>
+            <div class="name">
+                <a :href="repo.htmlUrl" target="_blank">${ repo.name }</a>
+            </div>
+            <p class="description" v-if="repo.description">${ repo.description }</p>
+            {#<p class="remark"></p>#}
+        </div>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
+{% if app.debug %}
+    <script src="//cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+{% else %}
+    <script src="//cdn.bootcss.com/vue/2.2.6/vue.min.js"></script>
+{% endif %}
+<script>
+    function init() {
+        axios.defaults.headers.common['xsrftoken'] = '{{ csrf_token('my_xsrftoken') }}'
+
+        new Vue({
+            el: '#app',
+            delimiters: ['${', '}'],
+            data: {
+                loading: false,
+                list: []
+            },
+            created: function () {
+                this.listRepo()
+            },
+            methods: {
+                listRepo: function () {
+                    var self = this
+
+                    self.loading = true
+
+                    axios.get('{{ path('app_default_listrepo') }}')
+                        .then(function (response) {
+                            self.loading = false
+                            self.list = response.data.list
+                        })
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
