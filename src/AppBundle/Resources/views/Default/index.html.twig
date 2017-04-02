@@ -20,13 +20,16 @@
         <div class="repo-item" v-for="repo in list">
             <div class="tags">
                 <span class="tag">标签</span>
-                <span class="tag tag--more">+</span>
             </div>
             <div class="name">
                 <a :href="repo.htmlUrl" target="_blank">${ repo.name }</a>
             </div>
             <p class="description" v-if="repo.description">${ repo.description }</p>
             {#<p class="remark"></p>#}
+            <div class="buttons">
+                <a class="button button--info" href="#">编辑</a>
+                <a class="button button--danger" href="#">删除</a>
+            </div>
         </div>
     </div>
 </div>

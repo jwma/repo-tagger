@@ -79,11 +79,6 @@
       border: 1px solid #ddd;
       padding: 4px 5px;
       background-color: #eee;
-
-      &--more {
-        cursor: pointer;
-        background-color: #fff;
-      }
     }
 
     .tag + .tag {
@@ -106,6 +101,30 @@
     color: #555;
     margin-top: 15px;
     font-size: 16px;
+  }
+
+  .buttons {
+    text-align: right;
+    margin-top: 15px;
+
+    .button {
+      text-decoration: none;
+      display: inline-block;
+      color: #fff;
+      font-size: 12px;
+      padding: 8px 10px;
+      background-color: #353535;
+      letter-spacing: 1px;
+      @include border-radius(5px);
+
+      &--info {
+        background-color: #00dd2b;
+      }
+      
+      &--danger {
+        background-color: #dd3247;
+      }
+    }
   }
 }
 
