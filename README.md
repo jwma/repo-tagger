@@ -16,6 +16,15 @@ github_username: your_username
 github_password: your_password
 ````
 
+创建数据库、表（记得现在 parameters.yml 配置数据库连接信息）
+````
+# 创建数据库
+bin/console doctrine:database:create
+
+# 创建数据表
+bin/console doctrine:schema:update --force
+````
+
 运行爬虫
 ````
 bin/console app:crawl-starred-list
