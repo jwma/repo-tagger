@@ -16,7 +16,7 @@ github_username: your_username
 github_password: your_password
 ````
 
-创建数据库、表（记得现在 parameters.yml 配置数据库连接信息）
+创建数据库、表（记得先在 parameters.yml 配置数据库连接信息）
 ````
 # 创建数据库
 bin/console doctrine:database:create
