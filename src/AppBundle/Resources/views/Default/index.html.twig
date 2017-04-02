@@ -46,7 +46,7 @@
                 <div class="form-label">标签</div>
                 <div class="form-item">
                     <div>
-                        <input type="text" v-model="editForm.newTag">
+                        <input type="text" v-model="editForm.newTag" @keyup.enter="addTag">
                         <button class="add-tag-btn button" @click="addTag">添加</button>
                     </div>
                     <div style="margin-top: 10px;">
