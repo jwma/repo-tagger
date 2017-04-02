@@ -32,9 +32,12 @@ body {
   @include align-items(baseline);
 
   .brand {
-    font-size: 20px;
-    color: #fff;
-    font-weight: bold;
+    a {
+      font-size: 20px;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+    }
   }
 
   .search-input-wrapper {
