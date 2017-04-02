@@ -1,5 +1,5 @@
 <!DOCTYPE>
-<html lang="zh_CN">
+<html lang="zh_CN" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <title>Repo tagger</title>
     <meta charset="UTF-8">
@@ -37,6 +37,39 @@
             </div>
         </transition-group>
     </div>
+
+    <div class="mask" v-show="editForm.show"></div>
+    <div class="edit-form-wrapper" v-show="editForm.show">
+        <div class="container edit-form">
+            <div class="form-title">编辑 ${ editForm.repo.name }</div>
+            <div class="form-control">
+                <div class="form-label">标签</div>
+                <div class="form-item">
+                    <div>
+                        <input type="text" v-model="editForm.newTag">
+                        <button class="add-tag-btn button" @click="addTag">添加</button>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="tag tag--big"
+                              v-for="(tag, idx) in editForm.repo.tags">
+                            ${ tag }
+                            <a class="times" href="javascript:" @click="removeTag(idx)">&times;</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-control">
+                <div class="form-label">备注</div>
+                <div class="form-item">
+                    <textarea v-model="editForm.repo.remark" rows="5">${ editForm.repo.remark }</textarea>
+                </div>
+            </div>
+            <div class="form-control" style="text-align: right;">
+                <button class="button button--big" @click="editForm.show = false">取消</button>
+                <button class="button button--big button--info">更新</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="//cdn.bootcss.com/axios/0.16.0/axios.min.js"></script>
 {% if app.debug %}
@@ -53,7 +86,17 @@
             delimiters: ['${', '}'],
             data: {
                 loading: false,
-                list: []
+                list: [],
+                editForm: {
+                    show: true,
+                    newTag: '',
+                    repo: {
+                        id: null,
+                        name: 'guzzle',
+                        tags: ['PHP', 'Http'],
+                        remark: ''
+                    }
+                }
             },
             created: function () {
                 this.listRepo()
@@ -69,6 +112,15 @@
                             self.loading = false
                             self.list = response.data.list
                         })
+                },
+                addTag: function () {
+                    if (this.editForm.newTag !== '') {
+                        this.editForm.repo.tags.push(this.editForm.newTag)
+                        this.editForm.newTag = ''
+                    }
+                },
+                removeTag: function (idx) {
+                    this.editForm.repo.tags.splice(idx, 1)
                 }
             }
         })

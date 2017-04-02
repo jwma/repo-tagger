@@ -97,6 +97,65 @@ body {
   opacity: 0
 }
 
+.tag {
+  color: #333;
+  font-size: 14px;
+  display: inline-block;
+  border: 1px solid #ddd;
+  padding: 4px 5px;
+  background-color: #eee;
+  position: relative;
+
+  a.times {
+    color: #999;
+    text-decoration: none;
+
+    &:hover {
+      color: #dd3247;
+    }
+  }
+
+  &--big {
+    font-size: 16px;
+    padding: 5px 6px;
+  }
+}
+
+.tag + .tag {
+  margin: 5px;
+}
+
+.button {
+  text-decoration: none;
+  display: inline-block;
+  color: #555;
+  font-size: 12px;
+  padding: 5px 10px;
+  background-color: #fff;
+  letter-spacing: 1px;
+  border: 1px solid #aaa;
+  @include border-radius(4px);
+
+  &--big {
+    padding: 6px 11px;
+    font-size: 16px;
+  }
+
+  &--info {
+    color: #00C859 !important;
+    border: 1px solid #00C859 !important;
+  }
+
+  &--danger {
+    color: #dd3247 !important;
+    border: 1px solid #dd3247 !important;
+  }
+}
+
+.button + .button {
+  margin-left: 5px;
+}
+
 .repo-item {
   background-color: #fff;
   width: 960px;
@@ -106,20 +165,6 @@ body {
   border: 1px solid #ddd;
   @include border-radius(10px);
   @include box-shadow(1px 1px 1px #aaa);
-
-  .tags {
-    .tag {
-      font-size: 14px;
-      display: inline-block;
-      border: 1px solid #ddd;
-      padding: 4px 5px;
-      background-color: #eee;
-    }
-
-    .tag + .tag {
-      margin-left: 5px;
-    }
-  }
 
   .name {
     margin-top: 15px;
@@ -141,35 +186,77 @@ body {
   .buttons {
     text-align: right;
     margin-top: 15px;
-
-    .button {
-      text-decoration: none;
-      display: inline-block;
-      color: #000;
-      font-size: 12px;
-      padding: 5px 10px;
-      background-color: #fff;
-      letter-spacing: 1px;
-      border: 1px solid #000;
-      @include border-radius(4px);
-
-      &--info {
-        color: #00C859;
-        border-color: #00C859;
-      }
-
-      &--danger {
-        color: #dd3247;
-        border-color: #dd3247;
-      }
-    }
-
-    .button + .button {
-      margin-left: 5px;
-    }
   }
 }
 
 .repo-item + .repo-item {
   margin-top: 30px;
+}
+
+.mask {
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.edit-form-wrapper {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  right: 0;
+  z-index: 102;
+
+  .edit-form {
+    background-color: #fff;
+    margin: 0 auto;
+    @include box-sizing(border-box);
+    padding: 20px;
+    border: 1px solid #ccc;
+    @include border-radius(5px);
+
+    .form-title {
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .form-control + .form-control {
+      margin-top: 20px;
+    }
+
+    .form-item {
+      margin-top: 15px;
+    }
+
+    input[type="text"] {
+      width: 150px;
+      @include border-radius(2px);
+      outline: none;
+      border: 1px solid #ddd;
+      padding: 5px;
+    }
+
+    .add-tag-btn {
+      display: inline-block;
+      margin-left: 5px;
+      cursor: pointer;
+      border: none;
+      background-color: #ddd;
+      outline: none;
+    }
+
+    textarea {
+      padding: 10px;
+      @include border-radius(5px);
+      outline: none;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+  }
 }
