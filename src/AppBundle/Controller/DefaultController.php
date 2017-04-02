@@ -75,4 +75,35 @@ class DefaultController extends Controller
 
         return new JsonResponse();
     }
+
+    /**
+     * @Route("/api/repo")
+     * @Method("DELETE")
+     */
+    public function deleteRepoAction(Request $request)
+    {
+        if (!$this->isCsrfTokenValid('my_xsrftoken', $request->headers->get('xsrftoken'))) {
+            return new JsonResponse(null, 403);
+        }
+
+        $id = $request->get('id');
+        if (is_null($id)) {
+            return new JsonResponse(null, 400);
+        }
+
+        $em = $this->get('doctrine')->getManager();
+        $repo = $em->getRepository('AppBundle:Repo')->find($id);
+
+        if (!$repo) {
+            return new JsonResponse(null, 404);
+        }
+
+        $repo
+            ->setIsDeleted(true)
+            ->setDeletedAt(new \DateTime());
+
+        $em->flush();
+
+        return new JsonResponse();
+    }
 }

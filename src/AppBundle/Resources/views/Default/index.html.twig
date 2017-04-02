@@ -32,7 +32,7 @@
                 <p class="remark" v-if="repo.remark">${ repo.remark }</p>
                 <div class="buttons">
                     <a class="button button--info" @click="toEdit(repo)">编辑</a>
-                    <a class="button button--danger" href="#">删除</a>
+                    <a class="button button--danger" @click="doDelete(repo.id)">删除</a>
                 </div>
             </div>
         </transition-group>
@@ -133,11 +133,22 @@
                 },
                 doUpdate: function () {
                     var self = this
+
                     axios.patch('{{ path('app_default_updaterepo') }}', this.editForm.repo)
                         .then(function (response) {
                             self.closeEditForm()
                             self.listRepo()
                         })
+                },
+                doDelete: function (id) {
+                    var self = this
+
+                    if (confirm('仓库删除后将不会在此列表显示，确定删除吗？')) {
+                        axios.delete('{{ path('app_default_deleterepo') }}?id=' + id)
+                            .then(function (response) {
+                                self.listRepo()
+                            })
+                    }
                 }
             }
         })
