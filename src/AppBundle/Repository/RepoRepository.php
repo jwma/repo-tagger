@@ -21,4 +21,24 @@ class RepoRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function search($filters = [])
+    {
+        $qb = $this->createQueryBuilder('repo');
+        $qb->select('repo.id', 'repo.name', 'repo.fullName', 'repo.htmlUrl', 'repo.description',
+            'repo.tags', 'repo.remark')
+            ->where('repo.isDeleted = false')
+            ->orderBy('repo.id', 'asc');
+
+        foreach ($filters as $filter) {
+            if ($filter['name'] == 'name') {
+                $qb
+                    ->andWhere('repo.fullName LIKE :filterName')
+                    ->setParameter('filterName', '%' . $filter['value'] . '%');
+
+            }
+        }
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

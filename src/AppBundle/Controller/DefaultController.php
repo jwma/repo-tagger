@@ -106,4 +106,35 @@ class DefaultController extends Controller
 
         return new JsonResponse();
     }
+
+    /**
+     * @Route("/api/search")
+     */
+    public function searchAction(Request $request)
+    {
+        $search = $request->get('search');
+
+        if (is_null($search)) {
+            return new JsonResponse(['list' => []]);
+        }
+
+        $searchArr = explode(':', $search);
+        $filters = [];
+
+        foreach ($searchArr as $one) {
+            $tmp = explode('=', $one);
+            if (count($tmp) < 2) {
+                continue;
+            }
+
+            $filters[] = ['name' => $tmp[0], 'value' => $tmp[1]];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $list = $em->getRepository('AppBundle:Repo')->search($filters);
+
+        return new JsonResponse([
+            'list' => $list
+        ]);
+    }
 }
