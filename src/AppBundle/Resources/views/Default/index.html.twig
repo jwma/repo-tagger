@@ -80,7 +80,7 @@
 {% endif %}
 <script>
     function init() {
-        axios.defaults.headers.common['xsrftoken'] = '{{ csrf_token('my_xsrftoken') }}';
+        axios.defaults.headers.common['xsrftoken'] = '{{ csrf_token('my_xsrftoken') }}'
 
         new Vue({
             el: '#app',
@@ -105,19 +105,19 @@
             },
             methods: {
                 listRepo: function () {
-                    var self = this;
+                    var self = this
 
-                    self.loading = true;
+                    self.loading = true
 
                     axios.get('{{ path('app_default_listrepo') }}')
                         .then(function (response) {
-                            self.loading = false;
+                            self.loading = false
                             self.list = response.data.list
                         })
                 },
                 addTag: function () {
                     if (this.editForm.newTag !== '') {
-                        this.editForm.repo.tags.push(this.editForm.newTag);
+                        this.editForm.repo.tags.push(this.editForm.newTag)
                         this.editForm.newTag = ''
                     }
                 },
@@ -125,25 +125,25 @@
                     this.editForm.repo.tags.splice(idx, 1)
                 },
                 closeEditForm: function () {
-                    this.editForm.show = false;
-                    this.editForm.newTag = '';
+                    this.editForm.show = false
+                    this.editForm.newTag = ''
                     this.editForm.repo = {}
                 },
                 toEdit: function (repo) {
-                    this.editForm.show = true;
+                    this.editForm.show = true
                     this.editForm.repo = JSON.parse(JSON.stringify(repo))
                 },
                 doUpdate: function () {
-                    var self = this;
+                    var self = this
 
                     axios.patch('{{ path('app_default_updaterepo') }}', this.editForm.repo)
                         .then(function (response) {
-                            self.closeEditForm();
+                            self.closeEditForm()
                             self.listRepo()
                         })
                 },
                 doDelete: function (id) {
-                    var self = this;
+                    var self = this
 
                     if (confirm('仓库删除后将不会在此列表显示，确定删除吗？')) {
                         axios.delete('{{ path('app_default_deleterepo') }}?id=' + id)
