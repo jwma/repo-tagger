@@ -17,7 +17,7 @@ class AppCrawlStarredListCommand extends ContainerAwareCommand
     {
         $this
             ->setName('app:crawl-starred-list')
-            ->setDescription('爬去 star 的仓库列表');
+            ->setDescription('爬取 star 的仓库列表');
     }
 
     /**
